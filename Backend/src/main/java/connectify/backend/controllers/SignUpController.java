@@ -17,7 +17,7 @@ public class SignUpController {
     }
 
     @PostMapping
-    public ResponseEntity<void> signup(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<Void> signup(@RequestBody UserRequest userRequest) {
         boolean isSignedUp = signUpService.signup(userRequest);
         if (isSignedUp) {
             return ResponseEntity.status(HttpStatus.CREATED).build();

@@ -9,15 +9,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "connectify", catalog = "")
 public class UsersEntity{
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "username")
     private String username;
     @Basic
     @Column(name = "password")
     private String password;
-    @OneToMany(mappedBy = "usersByUsername")
-    private Collection<AutomationsEntity> automationsByUsername;
 
     public String getUsername() {
         return username;
@@ -46,13 +43,5 @@ public class UsersEntity{
     @Override
     public int hashCode() {
         return Objects.hash(username, password);
-    }
-
-    public Collection<AutomationsEntity> getAutomationsByUsername() {
-        return automationsByUsername;
-    }
-
-    public void setAutomationsByUsername(Collection<AutomationsEntity> automationsByUsername) {
-        this.automationsByUsername = automationsByUsername;
     }
 }

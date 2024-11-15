@@ -1,13 +1,14 @@
 package connectify.backend.models.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users", schema = "connectify", catalog = "")
-public class UsersEntity {
+public class UsersEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "username")

@@ -34,10 +34,7 @@ public class AutomationsEntity {
     @Column(name = "jira_webhook_id")
     private Integer jiraWebhookId;
     @ManyToOne
-    @JoinColumn(name = "types_name", referencedColumnName = "name", nullable = false)
-    private TypesEntity typesByTypesName;
-    @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
     private UsersEntity usersByUsername;
 
     public Integer getId() {
@@ -116,15 +113,6 @@ public class AutomationsEntity {
     public int hashCode() {
         return Objects.hash(id, jiraCloudId, slackWebhookUrl, jiraProject, createdAt, typesName, username, jiraWebhookId);
     }
-
-    public TypesEntity getTypesByTypesName() {
-        return typesByTypesName;
-    }
-
-    public void setTypesByTypesName(TypesEntity typesByTypesName) {
-        this.typesByTypesName = typesByTypesName;
-    }
-
     public UsersEntity getUsersByUsername() {
         return usersByUsername;
     }

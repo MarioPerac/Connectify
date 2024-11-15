@@ -12,8 +12,6 @@ public class TypesEntity {
     @Id
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "typesByTypesName")
-    private Collection<AutomationsEntity> automationsByName;
 
     public String getName() {
         return name;
@@ -34,13 +32,5 @@ public class TypesEntity {
     @Override
     public int hashCode() {
         return Objects.hash(name);
-    }
-
-    public Collection<AutomationsEntity> getAutomationsByName() {
-        return automationsByName;
-    }
-
-    public void setAutomationsByName(Collection<AutomationsEntity> automationsByName) {
-        this.automationsByName = automationsByName;
     }
 }

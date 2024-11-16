@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/User.model';
+
 import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  public activeUser: User | null = null;
   private apiUrl = 'http://localhost:8080/api/login';
 
   constructor(private http: HttpClient) { }

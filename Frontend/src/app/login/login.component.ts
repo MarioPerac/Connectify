@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { LoginService } from '../services/login.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { User } from '../models/User.model';
+import { User } from '../models/user.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,9 +33,10 @@ export class LoginComponent {
   }
 
   public login(form: any) {
+    const user = new User(form.value.username, form.value.password);
     this.loginService.login(new User(form.value.username, form.value.password)).subscribe({
       next: (response: any) => {
-
+        this.loginService.activeUser = user;
         this.router.navigate(['home']);
       },
       error: (error) => {

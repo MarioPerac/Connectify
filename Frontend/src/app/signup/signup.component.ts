@@ -8,7 +8,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { User } from '../models/User.model';
+import { User } from '../models/user.model';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 

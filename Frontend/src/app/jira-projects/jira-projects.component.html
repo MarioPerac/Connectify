@@ -1,0 +1,11 @@
+<div class="select-container">
+    <label for="projectSelect">Choose a Jira Project:</label>
+    <select id="projectSelect" [(ngModel)]="selectedProject" class="project-select">
+      <option *ngFor="let project of projects" [value]="project">{{ project }}</option>
+    </select>
+  </div>
+  
+  <div class="button-container">
+    <button (click)="onNext()" class="next-button">Next</button>
+  </div>
+  

@@ -32,7 +32,7 @@ public class SlackAuthController {
 
     @GetMapping("/authorize")
     public void authorizeSlack(HttpServletResponse response) throws IOException {
-        redirectUri = frontendUrl + "/api/slack/oauth/callback";
+        redirectUri = frontendUrl + "/slack/oauth/callback";
         String encodedRedirectUri = URLEncoder.encode(redirectUri, StandardCharsets.UTF_8.toString());
 
         String authorizationUrl = "https://slack.com/oauth/v2/authorize" +

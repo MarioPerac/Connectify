@@ -2,6 +2,8 @@ package connectify.backend.controllers;
 
 import connectify.backend.models.requests.JiraWebhookRequest;
 import connectify.backend.services.JiraService;
+import connectify.backend.services.SlackService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,45 +26,30 @@ public class JiraController {
     private String baseUrl;
 
     private JiraService jiraService;
-
-    public JiraController(JiraService jiraService){
+    private SlackService slackService;
+    public JiraController(JiraService jiraService, SlackService slackService){
         this.jiraService = jiraService;
+        this.slackService = slackService;
     }
 
     @PostMapping("/webhook-received")
     public ResponseEntity<String> handleIssueCreatedEvent(@RequestBody Map<String, Object> requestBody) {
-        // Log or process the event
         System.out.println("Received event: " + requestBody);
+        JSONObject jsonObject = new JSONObject(requestBody);
 
-        // Check if the event contains the necessary data
-        if (requestBody.containsKey("eventType")) {
-            String eventType = (String) requestBody.get("eventType");
+        JSONObject issue = jsonObject.getJSONObject("issue");
+        String taskUrl = issue.getString("self");
+        String key = issue.getString("key");
 
-            // Process only "jira:issue_created" event type
-            if ("jira:issue_created".equals(eventType)) {
-                // Get the issue data from the event
-                Map<String, Object> issueData = (Map<String, Object>) requestBody.get("issue");
+        String accountId = jsonObject.getJSONObject("user").getString("accountId");
 
-                // Access the "fields" sub-map from the issue data
-                Map<String, Object> fields = (Map<String, Object>) issueData.get("fields");
+        int webhookId = jsonObject.getJSONArray("matchedWebhookIds").getInt(0);
 
-                // Extract specific fields from the "fields" sub-map
-                String issueKey = (String) issueData.get("key");
-                String summary = (String) fields.get("summary");
-                Map<String, Object> assignee = (Map<String, Object>) fields.get("assignee");
+        JSONObject fields = issue.getJSONObject("fields");
+        String status = fields.getJSONObject("status").getString("name");
+        String summary = fields.getString("summary");
 
-                // Log the extracted information
-                System.out.println("Issue Created: " + issueKey);
-                System.out.println("Summary: " + summary);
-                if (assignee != null) {
-                    System.out.println("Assignee: " + assignee.get("displayName"));
-                } else {
-                    System.out.println("No assignee assigned.");
-                }
-            }
-        }
-
-        // Return an appropriate HTTP response
+        slackService.sendJiraStatusUpdate(accountId, webhookId, taskUrl, key, status, summary);
         return ResponseEntity.ok("Event processed successfully");
     }
 

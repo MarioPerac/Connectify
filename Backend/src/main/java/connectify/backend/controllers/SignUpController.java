@@ -18,8 +18,7 @@ public class SignUpController {
 
     @PostMapping
     public ResponseEntity<Void> signup(@RequestBody UserRequest userRequest) {
-        boolean isSignedUp = signUpService.signup(userRequest);
-        if (isSignedUp) {
+        if (signUpService.signup(userRequest)) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

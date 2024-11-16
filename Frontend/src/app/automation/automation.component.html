@@ -15,7 +15,7 @@
         <span class="title">Slack</span>
       </div>
       <div class="button-container">
-        <button mat-flat-button color="primary" (click)="onAddClick()" class="add-button">Add</button>
+        <button mat-flat-button color="primary" [disabled]="!selectedType" (click)="onAddClick()" class="add-button">Add</button>
       </div>
     </mat-card>
   </div>

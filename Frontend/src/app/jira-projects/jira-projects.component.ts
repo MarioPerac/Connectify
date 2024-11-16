@@ -37,7 +37,6 @@ export class JiraProjectsComponent implements OnInit {
 
             this.jiraService.getCloudId().subscribe(
               (cloudId) => {
-                console.log(cloudId)
                 sessionStorage.setItem('cloud_id', cloudId);
                 
                 this.jiraService.getProjects(cloudId).subscribe(
@@ -47,6 +46,12 @@ export class JiraProjectsComponent implements OnInit {
                 );
               }
             );
+
+            this.jiraService.getAccountId().subscribe(
+              (accessId) => {
+                sessionStorage.setItem('jira_account_id', accessId);
+              }
+            )
           }
         );
         
@@ -59,6 +64,8 @@ export class JiraProjectsComponent implements OnInit {
   onNext(): void {
     const router = this.router;
     if (this.selectedProject) {
+      sessionStorage.setItem("project", this.selectedProject);
+
       var cloud_id = sessionStorage.getItem("cloud_id");
       var accessToken = sessionStorage.getItem("jira_access_token"); 
   

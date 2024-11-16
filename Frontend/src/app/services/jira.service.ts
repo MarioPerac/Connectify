@@ -42,6 +42,24 @@ export class JiraService {
       })
     );
   }
+
+  public getAccountId(): Observable<string> {
+    const url = 'https://api.atlassian.com/me'
+    const token = sessionStorage.getItem('jira_access_token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+    });
+
+    return this.http.get<any>(url, { headers }).pipe(
+      map(response => response.account_id),
+      catchError(error => {
+        console.error('Error fetching Jira Cloud ID:', error);
+        throw error;
+      })
+    );
+  }
   
   public getProjects(cloudId: string): Observable<string[]> {
 

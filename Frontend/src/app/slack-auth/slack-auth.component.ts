@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { SlackService } from '../services/slack.service';
 
 @Component({
   selector: 'app-slack-auth',
@@ -10,10 +11,10 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './slack-auth.component.css'
 })
 export class SlackAuthComponent {
-  constructor( ){
+  constructor(private slackService: SlackService ){
 
   }
   onAuthorizeClick(): void {
-    
+    this.slackService.authorize();
   }
 }

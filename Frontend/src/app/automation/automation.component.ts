@@ -37,5 +37,6 @@ export class AutomationComponent implements OnInit {
 
   onAddClick(): void {
     this.router.navigate(["/jira-auth"]);
+    sessionStorage.setItem("type", this.selectedType);
   }
 }

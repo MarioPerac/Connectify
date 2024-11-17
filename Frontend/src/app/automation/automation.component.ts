@@ -11,11 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 @Component({
   selector: 'app-automation',
   standalone: true,
-  imports: [ MatFormFieldModule, MatSelectModule, MatCardModule, MatInputModule, CommonModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
+  imports: [ ToolbarComponent, MatFormFieldModule, MatSelectModule, MatCardModule, MatInputModule, CommonModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './automation.component.html',
   styleUrl: './automation.component.css'
 })

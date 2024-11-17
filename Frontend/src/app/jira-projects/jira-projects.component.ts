@@ -4,11 +4,12 @@ import { JiraService } from '../services/jira.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JiraWebhookRequest } from '../models/jira_webhook.model';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 @Component({
   selector: 'app-jira-projects',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToolbarComponent],
   templateUrl: './jira-projects.component.html',
   styleUrl: './jira-projects.component.css'
 })

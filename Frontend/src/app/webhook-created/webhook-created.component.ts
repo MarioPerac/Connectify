@@ -6,11 +6,12 @@ import { Automation } from '../models/automation.model';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 @Component({
   selector: 'app-webhook-created',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, ToolbarComponent],
   templateUrl: './webhook-created.component.html',
   styleUrls: ['./webhook-created.component.css']
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SlackService } from '../services/slack.service';
 import { LoginService } from '../services/login.service';
-import { Automation } from '../models/automation.model';
+import { AutomationRequest } from '../models/automation_request.model';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -38,7 +38,7 @@ export class WebhookCreatedComponent implements OnInit {
             const jiraWebhookId = sessionStorage.getItem("webhook_id");
             const projectName = sessionStorage.getItem("project");
             const type = sessionStorage.getItem("type");
-            const username = this.loginService.activeUser?.username || "mario";
+            const username = sessionStorage.getItem("username");
             const jiraAccountId = sessionStorage.getItem("jira_account_id");
 
             if (
@@ -54,7 +54,7 @@ export class WebhookCreatedComponent implements OnInit {
               return;
             }
 
-            const automatin: Automation = new Automation(
+            const automatin: AutomationRequest = new AutomationRequest(
               cloudId, 
               slackWebhookUrl, 
               projectName, 

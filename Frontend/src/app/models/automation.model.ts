@@ -1,28 +1,20 @@
 export class Automation {
-    jiraCloudId: string;
-    slackWebhookUrl: string;
+    id: string;
     jiraProject: string;
     typesName: string;
-    username: string;
-    jiraWebhookId: string;
-    jiraAccountId: string;
+    createdAt: string;
   
     constructor(
-      jiraCloudId: string,
-      slackWebhookUrl: string,
+      id: string,
       jiraProject: string,
       typesName: string,
-      username: string,
-      jiraWebhookId: string,
-      jiraAccountId: string
+      createdAt: string
+
     ) {
-      this.jiraCloudId = jiraCloudId;
-      this.slackWebhookUrl = slackWebhookUrl;
+      this.id = id;
       this.jiraProject = jiraProject;
       this.typesName = typesName;
-      this.username = username;
-      this.jiraWebhookId = jiraWebhookId;
-      this.jiraAccountId = jiraAccountId;
+        this.createdAt = createdAt;
     }
   }
   

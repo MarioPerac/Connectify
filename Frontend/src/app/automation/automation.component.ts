@@ -26,7 +26,9 @@ export class AutomationComponent implements OnInit {
   constructor(private userService: UserService, private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
-    this.userService.getAvailableAutomations(this.loginService.activeUser!.username).subscribe({
+    const username = sessionStorage.getItem("username");
+    if(username != null){
+    this.userService.getAvailableAutomations(username).subscribe({
       next: (data: string[]) => {
         this.types = data; 
       },
@@ -34,6 +36,7 @@ export class AutomationComponent implements OnInit {
         console.error('Failed to load automation types:', err);
       }
     });;
+  }
   }
 
   onAddClick(): void {

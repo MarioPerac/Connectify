@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { AutomationRequest } from '../models/automation_request.model';
 import { Automation } from '../models/automation.model';
 
 @Injectable({
@@ -18,9 +19,14 @@ export class UserService {
 
   }
 
-  public addAutomation(automation: Automation){
+  public addAutomation(automation: AutomationRequest){
     const url = this.apiUrl + "/add-automation";
     return this.http.post(url, automation);
+  }
+
+  public getAutomations(): Observable<Automation[]> {
+    const url = this.apiUrl + "/" + sessionStorage.getItem("username") + "/automations";
+    return this.http.get<Automation[]>(url);
   }
 }
 

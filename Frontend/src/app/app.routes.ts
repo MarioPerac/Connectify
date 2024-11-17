@@ -6,6 +6,7 @@ import { JiraAuthCardComponent } from './jira-auth-card/jira-auth-card.component
 import { JiraProjectsComponent } from './jira-projects/jira-projects.component';
 import { SlackAuthComponent } from './slack-auth/slack-auth.component';
 import { WebhookCreatedComponent } from './webhook-created/webhook-created.component';
+import { TableComponent } from './table/table.component';
 
 export const routes: Routes = [
     {
@@ -38,5 +39,9 @@ export const routes: Routes = [
       {
         path: 'slack/oauth/callback',
         component: WebhookCreatedComponent
+      },
+      {
+        path: 'table',
+        component: TableComponent
       }
 ];

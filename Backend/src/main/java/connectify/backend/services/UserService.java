@@ -36,4 +36,11 @@ public class UserService {
     public List<Automation> getAutomations(String username){
         return automationRepository.getAllByUsername(username).stream().map(a -> modelMapper.map(a, Automation.class)).collect(Collectors.toList());
     }
+
+    public void deleteAutomation(Integer id, String accessToken){
+        AutomationsEntity entity = automationRepository.findById(id).get();
+
+
+
+    }
 }

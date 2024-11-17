@@ -36,7 +36,7 @@ export class LoginComponent {
     const user = new User(form.value.username, form.value.password);
     this.loginService.login(new User(form.value.username, form.value.password)).subscribe({
       next: (response: any) => {
-        this.loginService.activeUser = user;
+        sessionStorage.setItem("username", user.username);
         this.router.navigate(['home']);
       },
       error: (error) => {

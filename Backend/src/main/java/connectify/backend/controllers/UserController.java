@@ -39,4 +39,9 @@ public class UserController {
     public ResponseEntity<List<Automation>> getAutomations(@PathVariable String username){
         return ResponseEntity.ok(userService.getAutomations(username));
     }
+
+    @DeleteMapping("/automation/{id}")
+    public ResponseEntity<Void> deleteAutomation(@PathVariable Integer id){
+        return null; // to do
+    }
 }

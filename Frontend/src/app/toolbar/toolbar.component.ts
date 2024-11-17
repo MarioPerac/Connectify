@@ -19,7 +19,6 @@ export class ToolbarComponent {
   constructor(private router: Router, private loginService: LoginService) { }
 
   onLogoutClick() {
-    this.loginService.activeUser = null;
     sessionStorage.clear();
     this.router.navigate(['login']);
   }
@@ -34,5 +33,9 @@ export class ToolbarComponent {
 
   onControlClick() {
     this.router.navigate(['control']);
+  }
+
+  onMyAutomationsClick(){
+    this.router.navigate(['table']);
   }
 }

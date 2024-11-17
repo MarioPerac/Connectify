@@ -7,7 +7,6 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class LoginService {
-  public activeUser: User | null = null;
   private apiUrl = 'http://localhost:8080/api/login';
 
   constructor(private http: HttpClient) { }

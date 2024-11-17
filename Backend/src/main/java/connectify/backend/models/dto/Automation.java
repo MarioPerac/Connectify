@@ -1,13 +1,13 @@
 package connectify.backend.models.dto;
 
 import lombok.Data;
+
+import java.sql.Timestamp;
+
 @Data
 public class Automation {
-    private String jiraCloudId;
-    private String slackWebhookUrl;
+    private Integer id;
     private String jiraProject;
     private String typesName;
-    private String username;
-    private Integer jiraWebhookId;
-    private String jiraAccountId;
+    private Timestamp createdAt;
 }

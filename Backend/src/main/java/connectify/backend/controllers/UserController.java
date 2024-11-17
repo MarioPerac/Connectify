@@ -1,9 +1,8 @@
 package connectify.backend.controllers;
 
 import connectify.backend.models.dto.Automation;
+import connectify.backend.models.requests.AutomationRequest;
 import connectify.backend.services.UserService;
-import org.apache.catalina.User;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping("/add-automation")
-    public ResponseEntity<Void> addAutomation(@RequestBody Automation automation){
-        boolean status = userService.addAutomation(automation);
+    public ResponseEntity<Void> addAutomation(@RequestBody AutomationRequest automationRequest){
+        boolean status = userService.addAutomation(automationRequest);
 
         if(status){
             return ResponseEntity.ok().build();
@@ -34,5 +33,10 @@ public class UserController {
         else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/{username}/automations")
+    public ResponseEntity<List<Automation>> getAutomations(@PathVariable String username){
+        return ResponseEntity.ok(userService.getAutomations(username));
     }
 }

@@ -73,11 +73,9 @@ export class JiraService {
       'Authorization': `Bearer ${token}`,
       'Accept': 'application/json',
     });
-  
-    // Making the GET request to the Jira API
+
     return this.http.get<any[]>(`https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/project`, { headers }).pipe(
       map(response => {
-        // Extracting project names from the response
         return response.map(project => project.name);
       }),
       catchError(error => {

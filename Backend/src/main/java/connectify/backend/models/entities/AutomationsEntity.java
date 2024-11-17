@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.awt.desktop.SystemEventListener;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -28,9 +29,6 @@ public class AutomationsEntity {
     @Column(name = "created_at")
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
     @Basic
-    @Column(name = "types_name")
-    private String typesName;
-    @Basic
     @Column(name = "username")
     private String username;
     @Basic
@@ -39,5 +37,7 @@ public class AutomationsEntity {
     @Basic
     @Column(name = "jira_account_id")
     private String jiraAccountId;
+    @OneToMany(mappedBy = "automationsId", cascade = CascadeType.REMOVE)
+    private List<AutomationsHasTypesEntity> types;
 
 }

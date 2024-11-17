@@ -37,7 +37,7 @@ export class WebhookCreatedComponent implements OnInit {
             const cloudId = sessionStorage.getItem("cloud_id");
             const jiraWebhookId = sessionStorage.getItem("webhook_id");
             const projectName = sessionStorage.getItem("project");
-            const type = sessionStorage.getItem("type");
+            const types: string[] = JSON.parse(sessionStorage.getItem("types") || '[]');
             const username = sessionStorage.getItem("username");
             const jiraAccountId = sessionStorage.getItem("jira_account_id");
 
@@ -45,7 +45,7 @@ export class WebhookCreatedComponent implements OnInit {
               !cloudId ||
               !jiraWebhookId ||
               !projectName ||
-              !type ||
+              !types ||
               !username ||
               !slackWebhookUrl ||
               !jiraAccountId
@@ -58,7 +58,7 @@ export class WebhookCreatedComponent implements OnInit {
               cloudId, 
               slackWebhookUrl, 
               projectName, 
-              type, 
+              types, 
               username, 
               jiraWebhookId, 
               jiraAccountId

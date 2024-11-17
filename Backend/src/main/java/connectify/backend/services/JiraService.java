@@ -27,8 +27,10 @@ public class JiraService {
         ObjectNode webhook = jnf.objectNode();
 
         ArrayNode events = jnf.arrayNode();
-        events.add("jira:issue_created");
-        // events.add("jira:issue_updated");
+
+        for(String type: request.getTypes())
+            events.add(type);
+
         webhook.set("events", events);
 
         webhook.put("jqlFilter", "project =" + request.getProject());

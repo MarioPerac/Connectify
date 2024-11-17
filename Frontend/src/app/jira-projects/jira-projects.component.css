@@ -1,32 +1,35 @@
 .select-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-  }
-  
-  .project-select {
-    width: 200px;
-    padding: 5px;
-    margin-top: 10px;
-  }
-  
-  .button-container {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .next-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .next-button:hover {
-    background-color: #0056b3;
-  }
-  
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-content {
+  padding: 25px;
+  min-width: 250px;
+}
+
+button[mat-flat-button] {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button[mat-flat-button]:disabled {
+  background-color: #d3d3d3;
+  color: #808080;
+}
+
+.item{
+ justify-content: center;
+}
+
+.button-container{
+  display: flex;
+  justify-content: center;
+}

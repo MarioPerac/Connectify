@@ -1,12 +1,24 @@
 <app-toolbar></app-toolbar>
 <div class="select-container">
-    <label for="projectSelect">Choose a Jira Project:</label>
-    <select id="projectSelect" [(ngModel)]="selectedProject" class="project-select">
-      <option *ngFor="let project of projects" [value]="project">{{ project }}</option>
-    </select>
-  </div>
-  
-  <div class="button-container">
-    <button (click)="onNext()" class="next-button">Next</button>
-  </div>
-  
+  <mat-card appearance="outlined">
+    <mat-card-header class="item">
+      <h3>Select Jira Project</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="project-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a Jira Project</mat-label>
+          <mat-select [(ngModel)]="selectedProject" name="selectedProject" required>
+            <mat-option *ngFor="let project of projects" [value]="project">{{ project }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="button-container">
+          <button mat-flat-button color="primary" (click)="onNext()" class="next-button" [disabled]="!selectedProject">
+            Next
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

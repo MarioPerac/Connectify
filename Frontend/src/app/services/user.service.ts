@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
@@ -27,6 +27,16 @@ export class UserService {
   public getAutomations(): Observable<Automation[]> {
     const url = this.apiUrl + "/" + sessionStorage.getItem("username") + "/automations";
     return this.http.get<Automation[]>(url);
+  }
+
+  public deleteAutomation(id: string) {
+    const url = this.apiUrl + "/automation/" + id;
+    const accessToken = sessionStorage.getItem('jira_access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+  
+    return this.http.delete(url, { headers: headers });
   }
 }
 

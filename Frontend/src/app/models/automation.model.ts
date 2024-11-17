@@ -1,19 +1,19 @@
 export class Automation {
     id: string;
     jiraProject: string;
-    typesName: string;
+    types: string[];
     createdAt: string;
   
     constructor(
       id: string,
       jiraProject: string,
-      typesName: string,
+      types: string[],
       createdAt: string
 
     ) {
       this.id = id;
       this.jiraProject = jiraProject;
-      this.typesName = typesName;
+      this.types = types;
         this.createdAt = createdAt;
     }
   }

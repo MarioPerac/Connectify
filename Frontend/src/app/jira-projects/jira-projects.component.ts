@@ -5,11 +5,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JiraWebhookRequest } from '../models/jira_webhook.model';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-jira-projects',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToolbarComponent],
+  imports: [CommonModule, FormsModule, ToolbarComponent, MatButtonModule, MatSelectModule, MatFormFieldModule, MatCardModule],
   templateUrl: './jira-projects.component.html',
   styleUrl: './jira-projects.component.css'
 })

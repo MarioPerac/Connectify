@@ -2,7 +2,7 @@ export class AutomationRequest {
     jiraCloudId: string;
     slackWebhookUrl: string;
     jiraProject: string;
-    typesName: string;
+    types: string[];
     username: string;
     jiraWebhookId: string;
     jiraAccountId: string;
@@ -11,7 +11,7 @@ export class AutomationRequest {
       jiraCloudId: string,
       slackWebhookUrl: string,
       jiraProject: string,
-      typesName: string,
+      types: string[],
       username: string,
       jiraWebhookId: string,
       jiraAccountId: string
@@ -19,7 +19,7 @@ export class AutomationRequest {
       this.jiraCloudId = jiraCloudId;
       this.slackWebhookUrl = slackWebhookUrl;
       this.jiraProject = jiraProject;
-      this.typesName = typesName;
+      this.types = types;
       this.username = username;
       this.jiraWebhookId = jiraWebhookId;
       this.jiraAccountId = jiraAccountId;

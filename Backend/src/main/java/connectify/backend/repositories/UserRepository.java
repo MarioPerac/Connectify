@@ -1,5 +1,6 @@
 package connectify.backend.repositories;
 
+import connectify.backend.models.dto.Automation;
 import connectify.backend.models.entities.UsersEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,12 +11,15 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<UsersEntity, String> {
-
     @Query("""
     SELECT t.name
     FROM TypesEntity t
-    LEFT JOIN AutomationsEntity a ON t.name = a.typesName AND a.username = :username
-    WHERE a.typesName IS NULL
+    WHERE t.name NOT IN (
+        SELECT ht.typesName
+        FROM AutomationsHasTypesEntity ht
+        JOIN AutomationsEntity a ON ht.automationsId = a.id
+        WHERE a.username = :username
+    )
 """)
-    List<String> findUnusedTypesByUserId(@Param("username") String username);
+    List<String> findTypesNotInAutomationForUser(@Param("username") String username);
 }

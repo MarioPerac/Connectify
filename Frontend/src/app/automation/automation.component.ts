@@ -32,7 +32,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./automation.component.css']
 })
 export class AutomationComponent implements OnInit {
-  types: string[] = [];  // Define types as an empty array initially
+  types: string[] = [];
   form: FormGroup;
   isButtonDisabled: boolean = true;
 
@@ -40,7 +40,7 @@ export class AutomationComponent implements OnInit {
               private userService: UserService, 
               private loginService: LoginService, 
               private router: Router) {
-    // Initialize form with an empty FormArray
+
     this.form = this.fb.group({
       automations: this.fb.array([], [Validators.required])
     });
@@ -52,7 +52,7 @@ export class AutomationComponent implements OnInit {
       this.userService.getAvailableAutomations(username).subscribe({
         next: (data: string[]) => {
           this.types = data && data.length ? data : [];
-          this.setCheckboxes();  // Set the checkboxes once data is loaded
+          this.setCheckboxes();
         },
         error: (err) => {
           console.error('Failed to load automation types:', err);
@@ -60,25 +60,21 @@ export class AutomationComponent implements OnInit {
       });
     }
   }
-
-  // Dynamically create checkboxes based on types
   setCheckboxes() {
     const control = <FormArray>this.form.controls['automations'];
 
-    // Clear any existing controls before adding new ones
+
     control.clear();
 
-    // Add a FormControl for each type in the `types` array
     this.types.forEach((type, index) => {
-      control.push(this.fb.control(false)); // Push a new checkbox control
+      control.push(this.fb.control(false));
     });
 
     this.form.get('automations')?.valueChanges.subscribe(value => {
-      this.isButtonDisabled = !value.includes(true);  // Check if any checkbox is selected
+      this.isButtonDisabled = !value.includes(true);
     });
   }
 
-  // Get selected types (where the checkbox is checked)
   getSelectedTypes(): string[] {
     const selectedTypes = this.form.value.automations
       .map((checked: boolean, index: number) => checked ? this.types[index] : null)
@@ -86,12 +82,11 @@ export class AutomationComponent implements OnInit {
     return selectedTypes;
   }
 
-  // When the 'Add' button is clicked
   onAddClick() {
     const selectedTypes = this.getSelectedTypes();
     console.log('Selected Types:', selectedTypes);
     this.router.navigate(["/jira-auth"]);
-    sessionStorage.setItem("types", JSON.stringify(selectedTypes)); // Store selected types in session
+    sessionStorage.setItem("types", JSON.stringify(selectedTypes)); 
   }
 
 }

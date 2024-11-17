@@ -1,23 +1,62 @@
 <app-toolbar></app-toolbar>
+
 <div class="container">
-    <mat-card class="card">
-      <div class="name-dropdown">
+  <mat-card class="card">
+      <!-- Natpis i opis -->
+  <div class="automation-header">
+    <h2>Automation</h2>
+    <p class="automation-description">When the event(s) you select occur, Slack will notify you.</p>
+  </div>
+
+    <div class="name-dropdown">
+      <!-- Jira Logo Kolona (pre prve kolone) -->
+      <div class="jira-column">
         <img src="assets/jira.svg" alt="Jira" class="icon">
         <span class="title">Jira</span>
-        <mat-form-field appearance="fill" class="dropdown-field">
-          <mat-label>Choose automation</mat-label>
-          <mat-select [(value)]="selectedType">
-            <mat-option *ngFor="let type of types" [value]="type">
-              {{ type }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <p class="send-message">Choose event/s</p>
+      </div>
+
+      <!-- Prva Kolona: Tri Checkbox-a -->
+      <div class="checkbox-column">
+        <form [formGroup]="form">
+          <div *ngIf="types!.length > 0">
+            <div formArrayName="automations">
+              <div *ngFor="let type of types.slice(0, 3); let i = index" class="checkbox-item">
+                <mat-checkbox [formControlName]="i">{{ type }}</mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Druga Kolona: Tri Checkbox-a (centrirani) -->
+      <div class="checkbox-column centered">
+        <form [formGroup]="form">
+          <div *ngIf="types!.length > 0">
+            <div formArrayName="automations">
+              <div *ngFor="let type of types.slice(3, 6); let i = index" class="checkbox-item">
+                <mat-checkbox [formControlName]="i">{{ type }}</mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Treća Kolona: Strelica -->
+      <div class="arrow-column">
+        <span class="arrow">→</span>
+      </div>
+
+      <!-- Četvrta Kolona: Slack Logo i Text -->
+      <div class="column">
         <img src="assets/slack.png" alt="Slack" class="icon">
         <span class="title">Slack</span>
+        <p class="send-message">Send message</p>
       </div>
-      <div class="button-container">
-        <button mat-flat-button color="primary" [disabled]="!selectedType" (click)="onAddClick()" class="add-button">Add</button>
-      </div>
-    </mat-card>
-  </div>
-  
+    </div>
+
+    <div class="button-container">
+      <button mat-flat-button color="primary" [disabled]="isButtonDisabled" (click)="onAddClick()" class="add-button">Add</button>
+    </div>
+  </mat-card>
+</div>

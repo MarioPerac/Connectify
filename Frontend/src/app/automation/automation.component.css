@@ -1,67 +1,134 @@
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .card {
-    padding: 24px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background: white;
-    width: 40%;
-  }
-  
-  .name-dropdown {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  
-  .dropdown-field {
-    flex-grow: 1;
-    min-width: 200px;
-  }
-  
-  .icon {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-  }
-  
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-  }
-  
-  .add-button {
-    font-size: 14px;
-    padding: 8px 16px;
-    min-width: 80px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
 
-  .auth-card {
-    padding: 16px;
-    margin-top: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #fff;
-    text-align: center;
-  }
-  
-  .add-button {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-  
+.card {
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: white;
+  width: 80%;
+}
+
+.name-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.jira-column, .slack-column, .checkbox-column, .arrow-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow-column{
+  width: 50px;
+}
+.jira-column {
+  width: 200px;
+}
+
+.slack-column {
+  width: 200px;
+}
+
+.checkbox-column {
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow-column {
+  width: 10%; /* Užna kolona za strelicu */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.send-message {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007a5a; /* Slack zelena boja */
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-item {
+  margin-bottom: 10px;
+}
+
+.arrow {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-button {
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+.automation-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.automation-header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.automation-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+.checkbox-column.centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.jira-column, .checkbox-column, .arrow-column, .column {
+  padding: 10px;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 50px;
+}

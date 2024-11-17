@@ -35,7 +35,7 @@
           <div *ngIf="types!.length > 0">
             <div formArrayName="automations">
               <div *ngFor="let type of types.slice(3, 6); let i = index" class="checkbox-item">
-                <mat-checkbox [formControlName]="i">{{ type }}</mat-checkbox>
+                <mat-checkbox [formControlName]="i + 3">{{ type }}</mat-checkbox>
               </div>
             </div>
           </div>

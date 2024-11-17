@@ -18,23 +18,20 @@ public class SlackService {
     public SlackService(AutomationRepository automationRepository){
         this.automationRepository = automationRepository;
     }
-    public void sendJiraStatusUpdate(String accountId, Integer webhookId, String jiraTaskUrl, String key, String status, String summary) {
+
+    public void sendJiraStatusUpdate(String message, Integer webhookId, String accountId) {
 
         String webhookUrl= automationRepository.getSlackWebhookUrl(webhookId, accountId);
         JSONObject payload = new JSONObject();
 
-        String message = String.format(
-                "Jira Task Update:\n" +
-                        "Task URL: %s\n" +
-                        "Key: %s\n" +
-                        "Status: %s\n" +
-                        "Summary: %s",
-                jiraTaskUrl, key, status, summary
-        );
+
 
         payload.put("text", message);
 
         HttpClient client = HttpClient.newHttpClient();
+
+        if(webhookUrl == null)
+            return;
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(webhookUrl))

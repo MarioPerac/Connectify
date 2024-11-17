@@ -29,8 +29,8 @@ export class TableComponent {
   }
 
   deleteAutomation(id: string): void {
-    // this.automationsService.deleteAutomation(id).subscribe(() => {
-    //   this.automations = this.automations.filter((automation) => automation.id !== id);
-    // });
+    this.userService.deleteAutomation(id).subscribe(() => {
+      this.automations = this.automations.filter((automation) => automation.id !== id);
+    });
   }
 }

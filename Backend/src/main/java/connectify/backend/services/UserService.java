@@ -97,8 +97,7 @@ public class UserService {
                 entity,
                 Void.class
         );
-
-        if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
+        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
             automationRepository.deleteById(id);
             return true;
         } else {

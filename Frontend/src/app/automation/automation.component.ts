@@ -38,7 +38,6 @@ export class AutomationComponent implements OnInit {
 
   constructor(private fb: FormBuilder, 
               private userService: UserService, 
-              private loginService: LoginService, 
               private router: Router) {
 
     this.form = this.fb.group({
@@ -62,14 +61,13 @@ export class AutomationComponent implements OnInit {
   }
   setCheckboxes() {
     const control = <FormArray>this.form.controls['automations'];
-
-
     control.clear();
+  
 
     this.types.forEach((type, index) => {
-      control.push(this.fb.control(false));
+      control.push(this.fb.control(false)); 
     });
-
+  
     this.form.get('automations')?.valueChanges.subscribe(value => {
       this.isButtonDisabled = !value.includes(true);
     });

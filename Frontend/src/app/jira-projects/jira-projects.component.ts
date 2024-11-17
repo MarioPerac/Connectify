@@ -51,12 +51,6 @@ export class JiraProjectsComponent implements OnInit {
                 );
               }
             );
-
-            this.jiraService.getAccountId().subscribe(
-              (accessId) => {
-                sessionStorage.setItem('jira_account_id', accessId);
-              }
-            )
           }
         );
         
@@ -78,8 +72,8 @@ export class JiraProjectsComponent implements OnInit {
         alert('Cloud ID or Access Token is missing.');
         return;
       }
-  
-      const request = new JiraWebhookRequest(cloud_id,this.selectedProject, accessToken);
+      const types = JSON.parse(sessionStorage.getItem("types")!); 
+      const request = new JiraWebhookRequest(cloud_id,this.selectedProject, accessToken, types);
       this.jiraService.createWebhook(request).subscribe({
         next(webhookId: string) {
             sessionStorage.setItem("webhook_id", webhookId);

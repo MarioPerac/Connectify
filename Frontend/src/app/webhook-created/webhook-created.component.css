@@ -1,10 +1,25 @@
+.container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center;     /* Vertically center */
+  height: 100vh;           /* Full height to center vertically on the page */
+}
+
+.card {
+  padding: 20px;
+}
+
+.status-message {
+  font-size: 1.2rem; /* Optional: Adjust the font size if needed */
+  text-align: center; /* Center text horizontally within the message container */
+}
+
 .success {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .error {
-    color: red;
-    font-weight: bold;
-  }
-  
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}

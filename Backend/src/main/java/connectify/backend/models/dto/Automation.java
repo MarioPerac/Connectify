@@ -12,11 +12,12 @@ public class Automation {
     private String jiraProject;
     private List<String> types;
     private Timestamp createdAt;
-
-    public Automation(Integer id, String jiraProject, List<String> types, Timestamp createdAt) {
+    private Boolean status;
+    public Automation(Integer id, String jiraProject, List<String> types, Timestamp createdAt, Boolean status) {
         this.id = id;
         this.jiraProject = jiraProject;
         this.types = types;
         this.createdAt = createdAt;
+        this.status = status;
     }
 }

@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { Automation } from '../models/automation.model';
+import { A } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-table',
@@ -14,7 +15,7 @@ import { Automation } from '../models/automation.model';
 })
 export class TableComponent {
   automations: Automation[] = [];
-  displayedColumns: string[] = ['id', 'jiraProject', 'typesName', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['id', 'jiraProject', 'typesName', 'createdAt', 'status' , 'actions'];
 
   constructor(private userService: UserService) {}
 
@@ -30,7 +31,10 @@ export class TableComponent {
 
   deleteAutomation(id: string): void {
     this.userService.deleteAutomation(id).subscribe(() => {
-      this.automations = this.automations.filter((automation) => automation.id !== id);
+      this.automations.forEach((automation) =>{
+          if(automation.id == id)
+            automation.status = false;
+      });
     });
   }
 }

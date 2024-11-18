@@ -23,10 +23,16 @@
       <td mat-cell *matCellDef="let automation"> {{ automation.createdAt | date: 'short' }} </td>
     </ng-container>
   
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let automation"> {{ automation.status == true ? "ACTIVE" : "DELETED" }} </td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let automation">
-        <button class="delete-button" mat-raised-button color="warn" (click)="deleteAutomation(automation.id)">
+        <button *ngIf="automation.status == true" class="delete-button" mat-raised-button color="warn" (click)="deleteAutomation(automation.id)">
           Delete
         </button>
       </td>

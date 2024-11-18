@@ -37,6 +37,9 @@ public class AutomationsEntity {
     @Basic
     @Column(name = "jira_account_id")
     private String jiraAccountId;
+    @Basic
+    @Column(name = "status")
+    private Boolean status = true;
     @OneToMany(mappedBy = "automationsId", cascade = CascadeType.REMOVE)
     private List<AutomationsHasTypesEntity> types;
 

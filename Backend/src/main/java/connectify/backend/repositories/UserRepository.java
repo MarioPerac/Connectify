@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<UsersEntity, String> {
         SELECT ht.typesName
         FROM AutomationsHasTypesEntity ht
         JOIN AutomationsEntity a ON ht.automationsId = a.id
-        WHERE a.username = :username
+        WHERE a.username = :username AND a.status = true
     )
 """)
     List<String> findTypesNotInAutomationForUser(@Param("username") String username);

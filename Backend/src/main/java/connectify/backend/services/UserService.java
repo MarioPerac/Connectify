@@ -68,7 +68,8 @@ public class UserService {
                     entity.getId(),
                     entity.getJiraProject(),
                     typesName,
-                    entity.getCreatedAt()
+                    entity.getCreatedAt(),
+                    entity.getStatus()
             );
 
             automations.add(automation);
@@ -98,7 +99,8 @@ public class UserService {
                 Void.class
         );
         if (response.getStatusCode() == HttpStatus.ACCEPTED) {
-            automationRepository.deleteById(id);
+            automationsEntity.setStatus(false);
+            automationRepository.saveAndFlush(automationsEntity);
             return true;
         } else {
             return false;

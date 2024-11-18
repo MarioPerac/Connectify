@@ -41,9 +41,9 @@ public class UserController {
     }
 
     @DeleteMapping("/automation/{id}")
-    public ResponseEntity<Void> deleteAutomation(@PathVariable Integer id, @RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<Void> deleteAutomation(@PathVariable Integer id) {
 
-        if(userService.deleteAutomation(id, accessToken)){
+        if(userService.deleteAutomation(id)){
             return ResponseEntity.ok().build();
         }
 

@@ -1,3 +1,5 @@
+import { A } from "@angular/cdk/keycodes";
+
 export class AutomationRequest {
     jiraCloudId: string;
     slackWebhookUrl: string;
@@ -6,6 +8,9 @@ export class AutomationRequest {
     username: string;
     jiraWebhookId: string;
     jiraAccountId: string;
+    accessToken: string;
+    refreshToken: string;
+    expiresIn: Date;
   
     constructor(
       jiraCloudId: string,
@@ -14,7 +19,10 @@ export class AutomationRequest {
       types: string[],
       username: string,
       jiraWebhookId: string,
-      jiraAccountId: string
+      jiraAccountId: string,
+      accessToken: string,
+      refreshToken: string,
+      expiresIn: Date
     ) {
       this.jiraCloudId = jiraCloudId;
       this.slackWebhookUrl = slackWebhookUrl;
@@ -23,6 +31,9 @@ export class AutomationRequest {
       this.username = username;
       this.jiraWebhookId = jiraWebhookId;
       this.jiraAccountId = jiraAccountId;
+      this.accessToken = accessToken;
+      this.refreshToken = refreshToken;
+      this.expiresIn = expiresIn;
     }
   }
   

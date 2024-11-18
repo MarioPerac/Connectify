@@ -3,18 +3,36 @@ package connectify.backend.services;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import connectify.backend.models.dto.Automation;
+import connectify.backend.models.dto.JiraAuthTokens;
+import connectify.backend.models.entities.AutomationsEntity;
 import connectify.backend.models.requests.JiraWebhookRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 
 @Service
 public class JiraService {
     @Value("${jira.webhook.url}")
     private String JIRA_API_URL;
+
+    @Value("${jira.client.id}")
+    private String clientId;
+
+    @Value("${jira.client.secret}")
+    private String clientSecret;
+
+    private RestTemplate restTemplate;
+
+    public JiraService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     public String registerIssueCreatedWebhook(JiraWebhookRequest request, String webhookUrl) {
 
         String url = JIRA_API_URL + "/" + request.getCloudId() + "/rest/api/3/webhook";
@@ -62,6 +80,28 @@ public class JiraService {
             System.out.println("An unexpected error occurred: " + e.getMessage());
         }
         return null;
+    }
+
+    public JiraAuthTokens refreshJiraToken(String refreshToken) {
+        String url = "https://auth.atlassian.com/oauth/token";
+
+        // Kreiranje tela zahteva
+        String requestBody = String.format(
+                "{ \"grant_type\": \"refresh_token\", \"client_id\": \"%s\", \"client_secret\": \"%s\", \"refresh_token\": \"%s\" }",
+                clientId, clientSecret, refreshToken);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<JiraAuthTokens> response = restTemplate.exchange(url, HttpMethod.POST, entity, JiraAuthTokens.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody();
+        } else {
+            throw new RuntimeException("Failed to refresh token: " + response.getStatusCode());
+        }
     }
 
 }

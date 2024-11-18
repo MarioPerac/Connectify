@@ -40,7 +40,9 @@ export class WebhookCreatedComponent implements OnInit {
             const types: string[] = JSON.parse(sessionStorage.getItem("types")!);
             const username = sessionStorage.getItem("username");
             const jiraAccountId = sessionStorage.getItem("jira_account_id");
-
+            const accessToken = sessionStorage.getItem("jira_access_token")
+            const refreshToken = sessionStorage.getItem("jira_refresh_token");
+            const expiresIn = sessionStorage.getItem("expires_in");
             if (
               !cloudId ||
               !jiraWebhookId ||
@@ -48,7 +50,10 @@ export class WebhookCreatedComponent implements OnInit {
               !types ||
               !username ||
               !slackWebhookUrl ||
-              !jiraAccountId
+              !jiraAccountId ||
+              !accessToken ||
+              !refreshToken ||
+              !expiresIn
             ) {
               console.error("One or more values are missing.");
               return;
@@ -61,12 +66,15 @@ export class WebhookCreatedComponent implements OnInit {
               types, 
               username, 
               jiraWebhookId, 
-              jiraAccountId
+              jiraAccountId,
+              accessToken,
+              refreshToken,
+              new Date(expiresIn)
             );
 
             this.userService.addAutomation(automatin).subscribe(
               (response) => {
-                this.statusMessage = 'Automation successfully created!';
+                this.statusMessage = 'Connection successfully created!';
                 this.statusClass = 'success';
               },
               (err) => {

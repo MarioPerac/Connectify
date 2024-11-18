@@ -1,7 +1,5 @@
 package connectify.backend.controllers;
 
-import com.google.gson.Gson;
-import connectify.backend.models.dto.JiraAuthToken;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -42,7 +40,7 @@ public class JiraAuthController {
     public void authorizeSlack(HttpServletResponse response) throws IOException {
         redirectUri = frontendUrl + "/jira/oauth/callback";
         String encodedRedirectUri = URLEncoder.encode(redirectUri, StandardCharsets.UTF_8.toString());
-        String scope = "read:jira-work manage:jira-webhook read:field:jira read:project:jira read:webhook:jira write:webhook:jira delete:webhook:jira read:jira-user read:me read:jira-work";
+        String scope = "read:jira-work manage:jira-webhook read:field:jira read:project:jira read:webhook:jira write:webhook:jira delete:webhook:jira read:jira-user offline_access read:jira-work";
 
         String encodedScopes = URLEncoder.encode(scope, "UTF-8");
 
@@ -81,11 +79,5 @@ public class JiraAuthController {
         }
 
         return ResponseEntity.status(500).body("Error retrieving Jira access token");
-    }
-
-    private String extractAccessToken(String responseBody) {
-        Gson gson = new Gson();
-        JiraAuthToken authResponse = gson.fromJson(responseBody, JiraAuthToken.class);
-        return  authResponse.getAccess_token();
     }
 }

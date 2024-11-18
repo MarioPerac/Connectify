@@ -2,9 +2,11 @@ package connectify.backend.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.extern.slf4j.XSlf4j;
 
 import java.awt.desktop.SystemEventListener;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,6 +42,15 @@ public class AutomationsEntity {
     @Basic
     @Column(name = "status")
     private Boolean status = true;
+    @Basic
+    @Column(name= "access_token")
+    private String accessToken;
+    @Basic
+    @Column(name ="refresh_token")
+    private String refreshToken;
+    @Basic
+    @Column(name = "expires_in")
+    private Timestamp expiresIn;
     @OneToMany(mappedBy = "automationsId", cascade = CascadeType.REMOVE)
     private List<AutomationsHasTypesEntity> types;
 

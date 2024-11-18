@@ -38,7 +38,13 @@ export class JiraProjectsComponent implements OnInit {
           (response) => {
             const accessToken = response.access_token;
             sessionStorage.setItem('jira_access_token', accessToken);
-           
+           const refresthToken = response.refresh_token;
+           sessionStorage.setItem("jira_refresh_token", refresthToken);
+           const expiresIn = response.expires_in;
+           const expirationTime = new Date().getTime() + expiresIn * 1000;
+          const expirationDate = new Date(expirationTime);
+
+           sessionStorage.setItem("expires_in", expirationDate )
 
             this.jiraService.getCloudId().subscribe(
               (cloudId) => {

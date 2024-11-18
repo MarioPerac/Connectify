@@ -72,7 +72,7 @@ export class JiraService {
   }
 
   public createWebhook(request: JiraWebhookRequest){
-    const url = this.apiUrl + "/registerIssueCreatedWebhook";
+    const url = this.apiUrl + "/registerWebhook";
     return this.http.post<any>(url, request).pipe(
       map(response => {
         if ( response!= null && response.webhookRegistrationResult) {

@@ -30,13 +30,8 @@ export class UserService {
   }
 
   public deleteAutomation(id: string) {
-    const url = this.apiUrl + "/automation/" + id;
-    const accessToken = sessionStorage.getItem('jira_access_token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-  
-    return this.http.delete(url, { headers: headers });
+    const url = this.apiUrl + "/automation/" + id;  
+    return this.http.delete(url);
   }
 }
 

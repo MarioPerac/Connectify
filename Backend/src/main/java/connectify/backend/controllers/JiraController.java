@@ -220,7 +220,7 @@ public class JiraController {
 
 
 
-    @PostMapping("/registerIssueCreatedWebhook")
+    @PostMapping("/registerWebhook")
     public ResponseEntity<String> registerIssueCreatedWebhook(@RequestBody JiraWebhookRequest request){
         String body = jiraService.registerIssueCreatedWebhook(request,baseUrl +"/api/jira/webhook-received");
         return ResponseEntity.ok(body);

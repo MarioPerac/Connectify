@@ -1,6 +1,7 @@
 package connectify.backend.services;
 
 import connectify.backend.models.dto.Automation;
+import connectify.backend.models.dto.JiraAuthTokens;
 import connectify.backend.models.entities.AutomationsHasTypesEntity;
 import connectify.backend.models.requests.AutomationRequest;
 import connectify.backend.models.entities.AutomationsEntity;
@@ -12,6 +13,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,12 +27,14 @@ public class UserService {
     private AutomationsHasTypesRepository automationsHasTypesRepository;
     private ModelMapper modelMapper;
     private RestTemplate restTemplate;
-    public UserService(UserRepository userRepository, AutomationRepository automationRepository, AutomationsHasTypesRepository automationsHasTypesRepository, ModelMapper modelMapper, RestTemplate restTemplate){
+    private JiraService jiraService;
+    public UserService(UserRepository userRepository, AutomationRepository automationRepository, AutomationsHasTypesRepository automationsHasTypesRepository, ModelMapper modelMapper, RestTemplate restTemplate, JiraService jiraService){
         this.userRepository = userRepository;
         this.automationRepository = automationRepository;
         this.automationsHasTypesRepository = automationsHasTypesRepository;
         this.modelMapper = modelMapper;
         this.restTemplate = restTemplate;
+        this.jiraService = jiraService;
     }
 
     public List<String> getAvailableAutomations(String username){
@@ -79,15 +83,20 @@ public class UserService {
     }
 
 
-    public boolean deleteAutomation(Integer id, String accessToken){
+    public boolean deleteAutomation(Integer id){
         AutomationsEntity automationsEntity = automationRepository.findById(id).get();
+
+        if(automationsEntity.getExpiresIn().before(new Timestamp(System.currentTimeMillis()))){
+            JiraAuthTokens jiraAuthTokens = jiraService.refreshJiraToken(automationsEntity.getRefreshToken());
+            automationsEntity.setAccessToken(jiraAuthTokens.getAccess_token());
+        }
 
         String deleteUrl = "https://api.atlassian.com/ex/jira/" + automationsEntity.getJiraCloudId()+ "/rest/api/3/webhook";
 
         String requestBody = "{\"webhookIds\": [" + String.join(",", automationsEntity.getJiraWebhookId().toString()) + "]}";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", accessToken);
+        headers.set("Authorization", automationsEntity.getAccessToken());
         headers.set("Content-Type", "application/json");
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);

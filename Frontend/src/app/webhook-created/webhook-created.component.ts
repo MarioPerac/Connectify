@@ -42,7 +42,7 @@ export class WebhookCreatedComponent implements OnInit {
             const jiraAccountId = sessionStorage.getItem("jira_account_id");
             const accessToken = sessionStorage.getItem("jira_access_token")
             const refreshToken = sessionStorage.getItem("jira_refresh_token");
-            const expiresIn = sessionStorage.getItem("expires_in");
+            const expiresIn = JSON.parse(sessionStorage.getItem("expires_in")!);
             if (
               !cloudId ||
               !jiraWebhookId ||
@@ -69,7 +69,7 @@ export class WebhookCreatedComponent implements OnInit {
               jiraAccountId,
               accessToken,
               refreshToken,
-              new Date(expiresIn)
+              expiresIn
             );
 
             this.userService.addAutomation(automatin).subscribe(

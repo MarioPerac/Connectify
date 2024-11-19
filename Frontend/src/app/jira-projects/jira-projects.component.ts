@@ -43,8 +43,7 @@ export class JiraProjectsComponent implements OnInit {
            const expiresIn = response.expires_in;
            const expirationTime = new Date().getTime() + expiresIn * 1000;
           const expirationDate = new Date(expirationTime);
-
-           sessionStorage.setItem("expires_in", expirationDate )
+           sessionStorage.setItem("expires_in", JSON.stringify(expirationDate) )
 
             this.jiraService.getCloudId().subscribe(
               (cloudId) => {

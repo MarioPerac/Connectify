@@ -4,6 +4,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -17,4 +18,5 @@ public class AutomationRequest {
     private String jiraAccountId;
     private String accessToken;
     private String refreshToken;
+    private Timestamp expiresIn;
 }

@@ -15,7 +15,7 @@ import { A } from '@angular/cdk/keycodes';
 })
 export class TableComponent {
   automations: Automation[] = [];
-  displayedColumns: string[] = ['id', 'jiraProject', 'typesName', 'createdAt', 'status' , 'actions'];
+  displayedColumns: string[] = ['jiraProject', 'typesName', 'createdAt', 'status' , 'actions'];
 
   constructor(private userService: UserService) {}
 
@@ -25,7 +25,7 @@ export class TableComponent {
 
   loadAutomations(): void {
     this.userService.getAutomations().subscribe((data: Automation[]) => {
-      this.automations = data;
+      this.automations = data.reverse();
     });
   }
 

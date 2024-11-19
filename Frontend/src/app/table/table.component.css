@@ -1,4 +1,3 @@
-/* Dugme Delete */
 .delete-button {
     background-color: #ff0000;
     color: #ffffff;
@@ -13,8 +12,7 @@
   .delete-button:hover {
     background-color: #cc0000;
   }
-  
-  /* Tabela */
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -47,3 +45,17 @@
     transition: background-color 0.3s ease;
   }
   
+  .container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    text-align: center;
+  }

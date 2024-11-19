@@ -40,7 +40,7 @@ public class JiraAuthController {
     public void authorizeSlack(HttpServletResponse response) throws IOException {
         redirectUri = frontendUrl + "/jira/oauth/callback";
         String encodedRedirectUri = URLEncoder.encode(redirectUri, StandardCharsets.UTF_8.toString());
-        String scope = "read:jira-work manage:jira-webhook read:field:jira read:project:jira read:webhook:jira write:webhook:jira delete:webhook:jira read:jira-user offline_access read:jira-work";
+        String scope = "read:jira-work manage:jira-webhook read:field:jira read:project:jira read:webhook:jira write:webhook:jira delete:webhook:jira offline_access write:jira-work write:issue:jira read:issue:jira";
 
         String encodedScopes = URLEncoder.encode(scope, "UTF-8");
 

@@ -27,6 +27,13 @@ public class JiraService {
     @Value("${jira.client.secret}")
     private String clientSecret;
 
+    @Value("${jira.test.auth.token}")
+    private String testAuthToken;
+    @Value("${jira.test.cloud.id}")
+    private String testCloudId;
+
+    @Value("${jira.test.project}")
+    private String testProject;
     private RestTemplate restTemplate;
 
     public JiraService(RestTemplate restTemplate) {
@@ -101,6 +108,43 @@ public class JiraService {
             return response.getBody();
         } else {
             throw new RuntimeException("Failed to refresh token: " + response.getStatusCode());
+        }
+    }
+
+    public void createJiraTask(String summary) {
+        String url = JIRA_API_URL + "/" + testCloudId + "/rest/api/3/issue";
+
+        // JSON telo za kreiranje zadatka
+        String requestBody = String.format(
+                "{\n" +
+                        "  \"fields\": {\n" +
+                        "    \"project\": {\n" +
+                        "      \"key\": \"OPS\"\n" +
+                        "    },\n" +
+                        "    \"summary\": \"%s\",\n" +
+                        "    \"issuetype\": {\n" +
+                        "      \"name\": \"Task\"\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}", summary);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization",  "Bearer " + testAuthToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                System.out.println("Jira task created successfully: " + response.getBody());
+            } else {
+                System.err.println("Failed to create Jira task: " + response.getStatusCode());
+            }
+        } catch (Exception e) {
+            System.err.println("Error while creating Jira task: " + e.getMessage());
         }
     }
 

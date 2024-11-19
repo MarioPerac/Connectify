@@ -1,11 +1,10 @@
 <app-toolbar></app-toolbar>
-<table mat-table [dataSource]="automations" class="mat-elevation-z8">
+
+<div class="container">
+  <h1 class="title">My Connections</h1>
   
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let automation"> {{ automation.id }} </td>
-    </ng-container>
-  
+  <table mat-table [dataSource]="automations" class="mat-elevation-z8">
+    
     <ng-container matColumnDef="jiraProject">
       <th mat-header-cell *matHeaderCellDef> Jira Project </th>
       <td mat-cell *matCellDef="let automation"> {{ automation.jiraProject }} </td>
@@ -23,12 +22,11 @@
       <td mat-cell *matCellDef="let automation"> {{ automation.createdAt | date: 'short' }} </td>
     </ng-container>
   
-
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let automation"> {{ automation.status == true ? "ACTIVE" : "DELETED" }} </td>
     </ng-container>
-
+  
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let automation">
@@ -40,4 +38,5 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  </table>
+</div>

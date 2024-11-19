@@ -90,15 +90,15 @@ public class UserService {
             JiraAuthTokens jiraAuthTokens = jiraService.refreshJiraToken(automationsEntity.getRefreshToken());
             automationsEntity.setAccessToken(jiraAuthTokens.getAccess_token());
         }
-
+        System.out.println(automationsEntity.getAccessToken());
         String deleteUrl = "https://api.atlassian.com/ex/jira/" + automationsEntity.getJiraCloudId()+ "/rest/api/3/webhook";
 
         String requestBody = "{\"webhookIds\": [" + String.join(",", automationsEntity.getJiraWebhookId().toString()) + "]}";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", automationsEntity.getAccessToken());
+        headers.set("Authorization", "Bearer " + automationsEntity.getAccessToken());
         headers.set("Content-Type", "application/json");
-
+        System.out.println(requestBody);
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
         ResponseEntity<Void> response = restTemplate.exchange(
@@ -110,8 +110,10 @@ public class UserService {
         if (response.getStatusCode() == HttpStatus.ACCEPTED) {
             automationsEntity.setStatus(false);
             automationRepository.saveAndFlush(automationsEntity);
+            System.out.println("radi dobro");
             return true;
         } else {
+            System.out.println("ne rrrradi dobro");
             return false;
         }
     }
